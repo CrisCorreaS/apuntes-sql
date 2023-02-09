@@ -1,5 +1,5 @@
 # ejemplos-y-teoria-SQL
-Ejercicios resueltos y explicados hechos en clase de SQL
+Ejercicios de SQL resueltos y explicados hechos en clase
 
 Este repositorio está dedicado a documentar en GitHub mis apuntes de SQL hechos con Notion en la asignatura de "Bases de Datos" que estudio durante el curso 2022/2023.
 
