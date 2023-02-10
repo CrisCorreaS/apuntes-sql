@@ -14,3 +14,5 @@ Los documentos trabajados en phpMyAdmin son los siguientes:
 -3 Consultas con JOIN y UNION
 
 -4 Subconsultas
+
+5- Lenguaje de Definición de Datos (DDL) y de Manipulación de Datos (DML)
