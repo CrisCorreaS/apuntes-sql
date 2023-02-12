@@ -3,7 +3,7 @@ Ejercicios de SQL resueltos y explicados hechos en clase
 
 Este repositorio está dedicado a documentar en GitHub mis apuntes de SQL hechos con Notion en la asignatura de "Bases de Datos" que estudio durante el curso 2022/2023.
 
-En cada PDF que suba documentaré las consultas que he hecho a lo largo del curso, la base de datos y el diseño que utilizo, los links de interés que me han ayudado a entender mejor toda la materia y aparecerán todas las consultas explicadas con sus correspondientes resultados si se ejecutan. También añadiré una breve explicación en inglés.
+En cada PDF que suba documentaré las consultas que he hecho a lo largo del curso, la base de datos y el diseño que utilizo, los links de interés que me han ayudado a entender mejor toda la materia y aparecerán todas las consultas explicadas con sus correspondientes resultados si se ejecutan; por último, también añadiré una breve explicación en inglés.
 
 Los documentos trabajados en phpMyAdmin son los siguientes:
 
