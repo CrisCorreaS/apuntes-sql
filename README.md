@@ -16,3 +16,8 @@ Los documentos trabajados en phpMyAdmin son los siguientes:
 -4 Subconsultas
 
 -5 Lenguaje de Definición de Datos (DDL) y de Manipulación de Datos (DML)
+
+
+Los documentos trabajados en PostgreSQL son los siguientes:
+
+-6 Lenguaje Procedural
