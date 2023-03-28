@@ -3,7 +3,7 @@ Ejercicios de SQL resueltos y explicados hechos en clase
 
 Este repositorio está dedicado a documentar en GitHub mis apuntes de SQL hechos con Notion en la asignatura de "Bases de Datos" que estudio durante el curso 2022/2023.
 
-Aparecen en una carpeta "Base de datos" las bases de datos usadas en ejemplos a lo largo de todos los apuntes. Estas están organizadas en dos subcarpetas: las bases de datos usadas en phpMyAdmin y las utilizadas en PostgreSQL.
+Aparecen en una carpeta "Base de datos" las bases de datos usadas en ejemplos a lo largo de todos los apuntes. Estas están organizadas en dos subcarpetas: las bases de datos usadas en phpMyAdmin y las utilizadas en PostgreSQL. Las bases de datos no me pertenecen, solo las utilizo como herramienta de estudio y para dar consistencia y coherencia a los apuntes ya que así se pueden entender mejor los mismos.
 
 En cada PDF que suba documentaré las consultas que he hecho a lo largo del curso, la base de datos y el diseño que utilizo, los links de interés que me han ayudado a entender mejor toda la materia y aparecerán todas las consultas explicadas con sus correspondientes resultados si se ejecutan; por último, también añadiré una breve explicación en inglés para los archivos de SQL y una tarea explicada paso a paso.
 
