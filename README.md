@@ -20,4 +20,6 @@ Los documentos trabajados en phpMyAdmin son los siguientes:
 
 Los documentos trabajados en PostgreSQL son los siguientes:
 
--6 Lenguaje Procedural
+Lenguaje Procedural:
+
+-6 
