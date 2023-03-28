@@ -22,4 +22,10 @@ Los documentos trabajados en PostgreSQL son los siguientes:
 
 Lenguaje Procedural:
 
--6 
+-6 Funciones SQL y plpgSQL
+
+-7 Funciones plpgSQL avanzadas
+
+-8 Cursores plpgSQL
+
+-9 Triggers plpgSQL
