@@ -1,7 +1,8 @@
 # Ejemplos y Teoria SQL
 ![Badge en Desarollo](https://img.shields.io/badge/STATUS-FINALIZADO-violet) <br/>
 <br/>
-Este repositorio contiene ejercicios de SQL resueltos y explicados, realizados durante la asignatura de "Bases de Datos" durante el curso 2022/2023. Aquí encontrarás apuntes documentados con ejemplos, consultas y bases de datos utilizadas para comprender mejor los conceptos.
+
+Este repositorio creado por **[Cristina Correa](https://www.linkedin.com/in/cristina-correa-segade/)**, contiene ejercicios de SQL resueltos y explicados, realizados durante la asignatura de "Bases de Datos" durante el curso 2022/2023 del IES Fernando Wirtz. Aquí encontrarás apuntes documentados con ejemplos, consultas y bases de datos utilizadas para comprender mejor los conceptos. 
 
 ## Contenido
 El repositorio está organizado en las siguientes carpetas y documentos:
