@@ -11,7 +11,7 @@ Este repositorio creado por **[Cristina Correa](https://www.linkedin.com/in/cris
 El repositorio está organizado en las siguientes carpetas y documentos:
 
 ### Base de datos
-En la carpeta "Base de datos" se encuentran las bases de datos utilizadas en los ejemplos a lo largo de los apuntes. Están organizadas en dos subcarpetas: una para las bases de datos usadas en phpMyAdmin y otra para las utilizadas en PostgreSQL. Cabe destacar que las bases de datos no son de mi propiedad, simplemente las utilizo como herramienta de estudio y para dar consistencia y coherencia a los apuntes.
+En la carpeta "Base de datos" se encuentran las bases de datos utilizadas en los ejemplos a lo largo de los apuntes. Están organizadas en tres subcarpetas: una para las bases de datos usadas en phpMyAdmin, otra para las utilizadas en PostgreSQL y la última para SQL Server. Cabe destacar que las bases de datos no son de mi propiedad, simplemente las utilizo como herramienta de estudio y para dar consistencia y coherencia a los apuntes.
 
 ### Documentos phpMyAdmin:
 - **1.- Consultas sencillas de SQL:** Documento que contiene consultas simples de SQL.
