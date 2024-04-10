@@ -13,6 +13,9 @@ El repositorio está organizado en las siguientes carpetas y documentos:
 ### Base de datos
 En la carpeta "Base de datos" se encuentran las bases de datos utilizadas en los ejemplos a lo largo de los apuntes. Están organizadas en tres subcarpetas: una para las bases de datos usadas en phpMyAdmin, otra para las utilizadas en PostgreSQL y la última para SQL Server. Cabe destacar que las bases de datos no son de mi propiedad, simplemente las utilizo como herramienta de estudio y para dar consistencia y coherencia a los apuntes.
 
+### SQL Server
+Tiene apuntes, trucos y ejercicios resueltos de SQL Server.
+
 ### Documentos phpMyAdmin:
 - **1.- Consultas sencillas de SQL:** Documento que contiene consultas simples de SQL.
 - **2.- Consultas con funciones de agregado y expresiones regulares:** Documento que muestra consultas con el uso de funciones de agregado y expresiones regulares.
