@@ -202,13 +202,13 @@ ORDER BY
 > Pero si en vez de poner un alias en el `SELECT`, se lo pones en el `FROM`, entonces sí que se evalúa porque el `FROM` va antes que el `WHERE` a la hora de evaluarse:
 > ```
 > SELECT FirstName, LastName
-> FROM Sales.vIndividualCustomer AS "vIC"
-> WHERE "vIC".LastName = 'Zheng'
+> FROM Sales.vIndividualCustomer AS vIC
+> WHERE vIC.LastName = 'Zheng'
 > ```
 
 
 > [!NOTE]
-> El Column Ordinal es la posición ordinal de una columna dentro de una tabla o vista. En SQL Server, no es posible seleccionar datos de una columna utilizando su posición ordinal directamente en una consulta `SELECT`. La posición ordinal se puede utilizar en cláusulas como `ORDER BY`. Al hacer queries, el column ordinal se asigna al orden de columna que aparece en la cláusula `SELECT`:
+> **1-** El Column Ordinal es la posición ordinal de una columna dentro de una tabla o vista. En SQL Server, no es posible seleccionar datos de una columna utilizando su posición ordinal directamente en una consulta `SELECT`. La posición ordinal se puede utilizar en cláusulas como `ORDER BY`. Al hacer queries, el column ordinal se asigna al orden de columna que aparece en la cláusula `SELECT`:
 > Ej:
 > ```
 > SELECT FirstName, LastName
@@ -221,3 +221,36 @@ ORDER BY
 > FROM Sales.vIndividualCustomer
 > ORDER BY LastName DESC
 > ```
+> **2-** Para ordenar con `ORDER BY`, por defecto es de forma ascendente (ASC), y si se quiere ordenar las columnas de varias formas, se tiene que poner entre comas. Si se quiere por ejemplo el apellido de forma ascendente y el nombre de forma descendente, lo que deberíamos de poner es lo siguiente: 
+> ```
+> SELECT FirstName, LastName
+> FROM Sales.vIndividualCustomer
+> ORDER BY LastName, FirstName DESC
+> ```
+> Aquí se ordena el **LastName** de forma ascendente (esta al ser la opción por defecto, sería lo mismo que poner: `ORDER BY LastName ASC, FirstName DESC`) y el **FirstName** de forma descendente.
+> - Pero hay que tener en cuenta que el `ORDER BY` **no es conmutativo**, el orden de los factores SÍ que altera el resultado. Esto se puede ver en estos dos ejemplos ya que los resultados que dan no son iguales:
+> ```
+> SELECT FirstName, LastName
+> FROM Sales.vIndividualCustomer
+> ORDER BY LastName, FirstName DESC
+> ```
+> Se ordena primero por orden ascendente los apellidos y luego por orden descendente los nombres dando los siguientes resultados:
+> | |FirstName|LastName|
+> |-|---------|--------|
+> |1| Xavier  |  Adams |
+> |2| Wyatt   |  Adams |
+> |3| Thomas  |  Adams |
+> |4| Sydney  |  Adams |
+> 
+> ```
+> SELECT FirstName, LastName
+> FROM Sales.vIndividualCustomer
+> ORDER BY FirstName DESC, LastName
+> ```
+> Se ordena primero por orden descendente los nombres y luego por orden ascendente los apellidos dando los siguientes resultados:
+> | |FirstName|LastName|
+> |-|---------|--------|
+> |1|   Zoe   | Bailey |
+> |2|   Zoe   | Bell   |
+> |3|   Zoe   | Brooks |
+> |4|   Zoe   | Cook   |
