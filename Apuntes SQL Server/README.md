@@ -22,9 +22,21 @@ SQL Server es case-insensitive por lo que da igual escribir con mayúsculas o mi
     - Las **instrucciones DDL (Data Definition Language)** (CREATE, ALTER, DROP, TRUNCATE, RENAME, COMMENT)
     - Las **instrucciones DML (Data Manipulation Language)** (SELECT, INSET, UPDATE, DELETE)
 - Se ponen en gris y mayúsculas:
-    - Los **operadores lógicos** (AND, OR, NOT, XOR, LIKE, IN, BETWEEN, EXISTS, ALL, ANY o SOME)
+    - Los **operadores lógicos** (AND, OR, NOT, XOR, LIKE, IN, BETWEEN, EXISTS, ALL, ANY o SOME). Estos siguen la "predicate logic" o "symbolic logic", que básicamente es el conocimiento de cómo diferentes expresiones booleanas y lógicas se comportan combinadamente. Ej: AND tiene preferencia sobre OR.
     - Los **operadores de conjunto** (INNER JOIN, LEFT JOIN, LEFT OUTER JOIN, RIGHT JOIN, RIGHT OUTER JOIN, FULL JOIN y FULL OUTER JOIN)
 - Se ponen en rojo:
+    - Las **REGEX** se ponen con comillas simples (').
+    - Los **Wildcard Characters o Operators** ("%", "_", "[]", "^", "-", "{}") se ponen con comillas simples. Estos operadores se ponen con la cláusula LIKE. Para más info: [Vete a este enlace](https://www.w3schools.com/sql/sql_wildcards.asp). Ejemplos de esto son:
+```
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'M_%' 
+```
+```
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'D[a, o]n' 
+```
     - Los **Strings** se ponen con comillas simples ('). Por ejemplo en un "Literal SELECT Statement":
 ```
 SELECT 'Cristina Correa'
@@ -46,6 +58,7 @@ SELECT TOP 10
 FROM Sales.Customer
 ```
 
+## Buenas prácticas
 > [!NOTE]
 > Es buena práctica separar las cláusulas de sql en diferentes líneas para que se pueda leer mejor. Por ejemplo:
 > 
@@ -83,6 +96,49 @@ FROM Sales.Customer
 > ```
 > Hay que tener cuidado de cómo hacer bien y legibles las consultas
 
+- Una buena práctica es saber qué cláusulas utilizar para simplificar y hacer más legibles las queries. Por ejemplo
+    - Al igual que podemos escribir esto así:
+```
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName = 'Chris' OR FirstName = 'Steve' 
+	OR FirstName = 'Michael' OR FirstName = 'Thomas'
+```
+```
+SELECT *
+FROM Sales.vStoreWithDemographics
+WHERE AnnualSales >= 1000000 AND AnnualSales <= 2000000
+```
+    - Es mucho mejor utilizar cláusulas como estas:
+```
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName IN ('Chris', 'Steve', 'Michael', 'Thomas')
+```
+```
+SELECT *
+FROM Sales.vStoreWithDemographics
+WHERE AnnualSales BETWEEN 1000000 AND 2000000
+```
+
+- En vez de utilizar el Wildcard Operator de los corchetes, deberías de usar REGEX. Ya que la performance de la base de datos tiende a empeorar si usamos los corchetes. 
+- Sabiendo que un valor NULL y un espacio en blanco son diferentes porque el NULL significa nada, es decir, que no hay un dato específico para ese valor particular, mientras que el espacio en blanco es un valor conocido y puede ser comparado con otros valores de cadena. En SQL, puedes buscar valores que sean espacios en blanco utilizando la cláusula `WHERE [Column Name] = ' '` . Para filtrar los valores NULL podemos hacer lo siguiente: `WHERE [Column Name] IS NULL` o `WHERE [Column Name] IS NOT NULL`. Por ejemplo:
+```
+SELECT *
+FROM Person.Person
+WHERE MiddleName IS NULL
+```
+    - Pero lo siguiente estaría muy mal y no funcionaría:
+```
+SELECT *
+FROM Person.Person
+WHERE MiddleName = NULL
+```
+```
+SELECT *
+FROM Person.Person
+WHERE MiddleName = 'NULL'
+```
 
 ## Configuración
 - Si vamos a **Tools > Options > Text Editor > All Languages** y buscamos la opción **Settings > Line numbers** y hacemos click para marcar esa opción, podemos ver los números a la izquierda de todas las queries que hagamos.
@@ -94,7 +150,7 @@ FROM Sales.Customer
 
 
 ## FORMATOS:
-**El formato básico es el siguiente**
+**El formato básico es el siguiente:**
 ```
 SELECT [Column Name 1], [Column Name 2], ..., [Column Name n] 
 FROM [Database Name].[Schema Name].[Table Name / View Name] 
@@ -108,9 +164,60 @@ WHERE BirthDate <= '1/1/1980'
 ```
 - Si ya estamos conectados en `New Query` a la base de datos que queremos, no tenemos que especificarla
 
-**El formato más completo es el siguiente**
+**El formato más completo es el siguiente:**
 ```
-SELECT [Column Name 1], [Column Name 2], ..., [Column Name n] 
+SELECT [Column Name 1] AS [Some Alias], [Column Name 2], ..., [Column Name n] 
 FROM [Database Name].[Schema Name].[Table Name / View Name] 
-WHERE [Column Name 1] [COMPARISON OPERATOR 1] [some value 1] [[LOGICAL OPERATOR] [Column Name 2] [COMPARISON OPERATOR 2] [some value 2] ...]
+WHERE [Column Name 1] [COMPARISON OPERATOR] [Filtering Criteria]
+GROUP BY
+HAVING
+ORDER BY [ColumnName / ColumnOrdinal / ColumnAlias] [ASC / DESC]
 ```
+**El formato completo simplificado es:**
+```
+SELECT 
+FROM
+WHERE 
+GROUP BY
+HAVING
+ORDER BY 
+```
+> [!WARNING]
+> Aunque las queries que escribimos se hagan de la forma anterior, tenemos que saber que el orden en el que se evalúa el código de SQL es el siguiente: 
+> ```
+> FROM 
+> WHERE 
+> GROUP BY 
+> HAVING 
+> SELECT 
+> ORDER BY
+> ```
+> Es por eso que si hacemos lo siguiente:
+> ```
+> SELECT FirstName, LastName AS "Last Name"
+> FROM Sales.vIndividualCustomer
+> WHERE "Last Name" = 'Zheng'
+> ```
+> Nos da un **error** (*Invalid column name 'Last Name'*) porque el alias de la columna del `SELECT` se evalúa en SQL después del `WHERE` y este último no reconoce al alias. 
+> Pero si en vez de poner un alias en el `SELECT`, se lo pones en el `FROM`, entonces sí que se evalúa porque el `FROM` va antes que el `WHERE` a la hora de evaluarse:
+> ```
+> SELECT FirstName, LastName
+> FROM Sales.vIndividualCustomer AS "vIC"
+> WHERE "vIC".LastName = 'Zheng'
+> ```
+
+
+> [!NOTE]
+> El Column Ordinal es la posición ordinal de una columna dentro de una tabla o vista. En SQL Server, no es posible seleccionar datos de una columna utilizando su posición ordinal directamente en una consulta `SELECT`. La posición ordinal se puede utilizar en cláusulas como `ORDER BY`. Al hacer queries, el column ordinal se asigna al orden de columna que aparece en la cláusula `SELECT`:
+> Ej:
+> ```
+> SELECT FirstName, LastName
+> FROM Sales.vIndividualCustomer
+> ORDER BY 2 DESC
+> ```
+> El column ordinal de FirstName es 1 y el column ordinal de LastName es 2, por lo que aquí lo que estamos haciendo es:
+> ```
+> SELECT FirstName, LastName
+> FROM Sales.vIndividualCustomer
+> ORDER BY LastName DESC
+> ```
