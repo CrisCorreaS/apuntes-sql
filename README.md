@@ -1,16 +1,20 @@
 # Ejemplos y Teoria SQL
-![Badge Finalizado](https://img.shields.io/badge/STATUS-FINALIZADO-violet)
+![Badge en Desarollo](https://img.shields.io/badge/STATUS-EN%20DESAROLLO-green)
 <img align="right" alt="License MIT" src="https://img.shields.io/badge/LICENSE-MIT-green" /> <br/>
-<img alt="postgresql" src="https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" />
-<img alt="mariadb" src="https://img.shields.io/badge/-MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white" />
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
+![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=flat-square&logo=microsoft%20sql%20server&logoColor=white)
+![MariaDB](https://img.shields.io/badge/-MariaDB-003545?style=flat-square&logo=mariadb&logoColor=white)
 <br/><br/>
-Este repositorio creado por **[Cristina Correa](https://www.linkedin.com/in/cristina-correa-segade/)**, contiene ejercicios de SQL resueltos y explicados, realizados durante la asignatura de "Bases de Datos" durante el curso 2022/2023 del IES Fernando Wirtz. Aquí encontrarás apuntes documentados con ejemplos, consultas y bases de datos utilizadas para comprender mejor los conceptos. 
+Este repositorio creado por **[Cristina Correa](https://www.linkedin.com/in/cristina-correa-segade/)**, contiene ejercicios de SQL resueltos y explicados, realizados durante la asignatura de "Bases de Datos" durante el curso 2022/2023 del IES Fernando Wirtz. Aquí encontrarás apuntes documentados con ejemplos, consultas y bases de datos utilizadas para comprender mejor los conceptos. Una vez finalizado el curso 22/23, se ha ido ampliando el temario de SQL abordando temas como SQL Server y T-SQL.
 
 ## Contenido
 El repositorio está organizado en las siguientes carpetas y documentos:
 
 ### Base de datos
-En la carpeta "Base de datos" se encuentran las bases de datos utilizadas en los ejemplos a lo largo de los apuntes. Están organizadas en dos subcarpetas: una para las bases de datos usadas en phpMyAdmin y otra para las utilizadas en PostgreSQL. Cabe destacar que las bases de datos no son de mi propiedad, simplemente las utilizo como herramienta de estudio y para dar consistencia y coherencia a los apuntes.
+En la carpeta "Base de datos" se encuentran las bases de datos utilizadas en los ejemplos a lo largo de los apuntes. Están organizadas en tres subcarpetas: una para las bases de datos usadas en phpMyAdmin, otra para las utilizadas en PostgreSQL y la última para SQL Server. Cabe destacar que las bases de datos no son de mi propiedad, simplemente las utilizo como herramienta de estudio y para dar consistencia y coherencia a los apuntes.
+
+### SQL Server
+Tiene apuntes, trucos y ejercicios resueltos de SQL Server.
 
 ### Documentos phpMyAdmin:
 - **1.- Consultas sencillas de SQL:** Documento que contiene consultas simples de SQL.
