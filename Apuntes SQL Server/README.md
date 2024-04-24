@@ -21,6 +21,8 @@ SQL Server es case-insensitive por lo que da igual escribir con mayúsculas o mi
     - Las **palabras reservadas** (SELECT, FROM y WHERE)
     - Las **instrucciones DDL (Data Definition Language)** (CREATE, ALTER, DROP, TRUNCATE, RENAME, COMMENT)
     - Las **instrucciones DML (Data Manipulation Language)** (SELECT, INSET, UPDATE, DELETE)
+- Se ponen en rosa y mayúsculas:
+    - Las **aggregate functions** (SUM, MAX, MIN, COUNT, DISTINCT, AVG, )
 - Se ponen en gris y mayúsculas:
     - Los **operadores lógicos** (AND, OR, NOT, XOR, LIKE, IN, BETWEEN, EXISTS, ALL, ANY o SOME). Estos siguen la "predicate logic" o "symbolic logic", que básicamente es el conocimiento de cómo diferentes expresiones booleanas y lógicas se comportan combinadamente. Ej: AND tiene preferencia sobre OR.
     - Los **operadores de conjunto** (INNER JOIN, LEFT JOIN, LEFT OUTER JOIN, RIGHT JOIN, RIGHT OUTER JOIN, FULL JOIN y FULL OUTER JOIN)
@@ -169,7 +171,7 @@ WHERE BirthDate <= '1/1/1980'
 SELECT [Column Name 1] AS [Some Alias], [Column Name 2], ..., [Column Name n] 
 FROM [Database Name].[Schema Name].[Table Name / View Name] 
 WHERE [Column Name 1] [COMPARISON OPERATOR] [Filtering Criteria]
-GROUP BY
+GROUP BY [Column Name 1], [Column Name 2], ..., [Column Name n] 
 HAVING
 ORDER BY [ColumnName / ColumnOrdinal / ColumnAlias] [ASC / DESC]
 ```
@@ -254,3 +256,39 @@ ORDER BY
 > |2|   Zoe   | Bell   |
 > |3|   Zoe   | Brooks |
 > |4|   Zoe   | Cook   |
+>
+> **3-** Los alias en las tablas en la cláusula `FROM` son obligatorios cuando se usa cualquier tipo de `JOIN`. Esto es porque si dos tablas tienen un atributo que se llama de la misma manera, habrá un conflicto como el que vamos a poner a continuación:
+> 
+> Si tenemos dos tablas: La primera **Production.Product** que se ve así:
+> | |ProductID| Name    |ProductLine|ProductSubcategoryID|
+> |-|---------|---------|-----------|--------------------|
+> |1|    1    | Blade   |  NULL     |         1          |
+> |2|    2    | Decal 1 |  M        |         6          |
+> |3|    3    | Decal 2 |  R        |         6          |
+> |4|    4    | Fork End|  NULL     |         3          |
+> 
+> Y tenemos la segunda tabla llamada **Production.ProductSubcategory** que se ve así:
+> | |ProductSubcategoryID| ProductCategoryID|     Name      |
+> |-|--------------------|------------------|---------------|
+> |1|         1          |        1         | Mountain Bikes|
+> |2|         2          |        1         | Road Bikes    |
+> |3|         3          |        1         | Brakes        |
+> |4|         4          |        2         | Chains        |
+> Si hacemos una query como esta donde no explicamos si queremos el atributo Name de la primera tabla o de la segunda, nos dará un fallo (*Ambiguous column name 'Name'.*):
+> ```
+> SELECT Name
+> FROM Production.Product P
+> INNER JOIN Production.ProductSubcategory PS
+> ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+> ```
+> Mientras que si utilizamos los alias en la cláusula `SELECT`, no nos dará ningún fallo:
+> ```
+> SELECT 
+> 	P.Name AS "Product Name", 
+> 	P.ProductLine, 
+> 	PS.Name AS "Sub Category Name"
+> FROM Production.Product P
+> INNER JOIN Production.ProductSubcategory PS
+> ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+> ```
+> **4-** Cuando usamos `GROUP BY` normalmente tendremos que utilizar **aggregate functions** como SUM(), COUNT(), MAX() en las Select clause o la Having clause
