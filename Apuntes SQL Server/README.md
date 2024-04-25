@@ -268,12 +268,14 @@ ORDER BY
 > |4|    4    | Fork End|  NULL     |         3          |
 > 
 > Y tenemos la segunda tabla llamada **Production.ProductSubcategory** que se ve así:
-> | |ProductSubcategoryID| ProductCategoryID|     Name      |
-> |-|--------------------|------------------|---------------|
-> |1|         1          |        1         | Mountain Bikes|
-> |2|         2          |        1         | Road Bikes    |
-> |3|         3          |        1         | Brakes        |
-> |4|         4          |        2         | Chains        |
+> 
+> | | ProductSubcategoryID | ProductCategoryID |     Name       |
+> |-|----------------------|-------------------|----------------|
+> |1|          1           |        1          | Mountain Bikes |
+> |2|          2           |        1          | Road Bikes     |
+> |3|          3           |        1          | Brakes         |
+> |4|          4           |        2          | Chains         |
+> 
 > Si hacemos una query como esta donde no explicamos si queremos el atributo Name de la primera tabla o de la segunda, nos dará un fallo (*Ambiguous column name 'Name'.*):
 > ```
 > SELECT Name
@@ -292,3 +294,29 @@ ORDER BY
 > ON P.ProductSubcategoryID = PS.ProductSubcategoryID
 > ```
 > **4-** Cuando usamos `GROUP BY` normalmente tendremos que utilizar **aggregate functions** como SUM(), COUNT(), MAX() en las Select clause o la Having clause
+> 
+> **5-** Se puede hacer `GROUP BY` de varias columnas como podemos ver en el siguiente ejemplo donde obtenemos la suma total de las ventas por territorio y por vendedor durante el año 2006, mostrando el nombre del territorio, el nombre del vendedor y el total de ventas para cada combinación de territorio y vendedor, y ordenando los resultados por territorio y luego por vendedor. Acuérdate de que se pueden poner dos parámetros unidos con "+" para formar uno solo como pasa con "FirstName" y "LastName" que forman el "Sales Person Name". Si no se separar con comas (,) cuentan como un único parámetro y por eso hay que añadirles un espacio (" ") para que los nombres en vez de ser "CristinaCorrea" sean "Cristina Correa".
+> ```
+> SELECT
+>   ST.Name AS "Territory Name",
+>   P.FirstName + ' ' + P.LastName AS "Sales Person Name",
+>   SUM(TotalDue) AS "Total Sales"
+> FROM Sales.SalesOrderHeader SOH
+> INNER JOIN Sales.SalesPerson SP
+> ON SP.BusinessEntityID = SOH.SalesPersonID
+> INNER JOIN Person.Person P
+> ON P.BusinessEntityID = SP.BusinessEntityID
+> INNER JOIN Sales.SalesTerritory ST
+> ON ST.TerritoryID = SOH.TerritoryID
+> WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
+> GROUP BY ST.Name, P.FirstName + ' ' + P.LastName
+> ORDER BY 1, 2
+> ```
+> El resultado sería:
+>
+> | | Territory Name | Sales Person Name | Total Sales |
+> |-|----------------|-------------------|-------------|
+> |1|     Canada     |   Garrett Vargas  |1340859.9994 |
+> |2|     Canada     |   Jae Pak         |2842719.9744 |
+> |3|     Canada     |   José Saraiva    |1184324.6949 |
+> |4|     Central    |   Stephen Jian    |75455.4235   |
