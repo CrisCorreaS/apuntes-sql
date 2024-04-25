@@ -343,7 +343,7 @@ ORDER BY
 > |3|   Central      |2959946.9341 |
 > |4|   France       |1535232.8963 |
 >
-> Ahora gracias al `HAVING` no nos va a devolver todos los territorios y sus ventas totales anuales en el 2006 ordenadas según el nombre del territorio, sino que solo nos va a devolver los territorios que hayan tenido unas ventas superirores a 4 millones:
+> Ahora gracias al `HAVING` no nos va a devolver todos los territorios y sus ventas totales anuales en el 2006 ordenadas según el nombre del territorio, sino que solo nos va a devolver los territorios que hayan tenido unas ventas superiores a 4 millones:
 > ```
 > SELECT
 >   ST.Name AS "Territory Name",
