@@ -170,9 +170,9 @@ WHERE BirthDate <= '1/1/1980'
 ```
 SELECT [Column Name 1] AS [Some Alias], [Column Name 2], ..., [Column Name n] 
 FROM [Database Name].[Schema Name].[Table Name / View Name] 
-WHERE [Column Name 1] [COMPARISON OPERATOR] [Filtering Criteria]
+WHERE [Column Name 1] {comparison operator} [Filtering Criteria]
 GROUP BY [Column Name 1], [Column Name 2], ..., [Column Name n] 
-HAVING
+HAVING [Aggregate function] {comparison operator} [Filtering Criteria]
 ORDER BY [ColumnName / ColumnOrdinal / ColumnAlias] [ASC / DESC]
 ```
 **El formato completo simplificado es:**
@@ -320,3 +320,46 @@ ORDER BY
 > |2|     Canada     |   Jae Pak         |2842719.9744 |
 > |3|     Canada     |   José Saraiva    |1184324.6949 |
 > |4|     Central    |   Stephen Jian    |75455.4235   |
+>
+> **6-** Sabemos que la `HAVING` clause es fundamentalmente similar a la `WHERE` clause, con la diferencia de que mientras `WHERE` filtra filas de datos basándose en los valores de columnas, `HAVING` se utiliza para filtrar grupos basados en sus funciones de agregación (aggregate functions). Podemos ver cómo funciona fácilmente con este ejemplo:
+>
+> Primero haremos una query donde nos devuelva los territorios y sus ventas totales anuales en el 2006 ordenadas según el nombre del territorio:
+> ```
+> SELECT
+>   ST.Name AS "Territory Name",
+>   SUM(TotalDue) AS "Total Sales - 2006"
+> FROM Sales.SalesOrderHeader SOH
+> INNER JOIN Sales.SalesTerritory ST
+> ON ST.TerritoryID = SOH.TerritoryID
+> WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
+> GROUP BY ST.Name
+> ORDER BY 1
+> ```
+> Esto nos devolverá 18 filas con los siguientes resultados (solo pongo los 4 primeros):
+> | | Territory Name | Total Sales |
+> |-|----------------|-------------|
+> |1|   Australia    |2380484.8387 |
+> |2|   Canada       |6130230.7354 |
+> |3|   Central      |2959946.9341 |
+> |4|   France       |1535232.8963 |
+>
+> Ahora gracias al `HAVING` no nos va a devolver todos los territorios y sus ventas totales anuales en el 2006 ordenadas según el nombre del territorio, sino que solo nos va a devolver los territorios que hayan tenido unas ventas superirores a 4 millones:
+> ```
+> SELECT
+>   ST.Name AS "Territory Name",
+>   SUM(TotalDue) AS "Total Sales - 2006"
+> FROM Sales.SalesOrderHeader SOH
+> INNER JOIN Sales.SalesTerritory ST
+> ON ST.TerritoryID = SOH.TerritoryID
+> WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
+> GROUP BY ST.Name
+> HAVING SUM(TotalDue) > 4000000
+> ORDER BY 1
+> ```
+> Esto nos dará 3 filas que representan los únicos territorios con ventas mayores a 4 millones:
+> | | Territory Name | Total Sales |
+> |-|----------------|-------------|
+> |1|   Canada       |6130230.7354 |
+> |2|   Northwest    |4855977.1032 |
+> |3|   Southwest    |8489320.9825 |
+>
